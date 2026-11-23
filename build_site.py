@@ -46,7 +46,6 @@ def fetch_bgg_details(bgg_id):
     thumb_el = item.find("thumbnail")
     thumb = thumb_el.text.strip() if thumb_el is not None and thumb_el.text else ""
 
-    # Determine community best player count
     best_players = f"{min_p}-{max_p}" if min_p != max_p else str(min_p)
     best_votes = 0
     for res in item.findall(".//poll[@name='suggested_numplayers']/results"):
@@ -79,89 +78,38 @@ def fetch_bgg_details(bgg_id):
         "tags": tags
     }
 
-def main():
-    if not BGG_TOKEN:
-        raise RuntimeError("Missing BGG_TOKEN environment variable.")
-
-    # Load existing cache so we don't re-fetch games we already have
-    cache = {}
-    if os.path.exists("games_data.json"):
-        with open("games_data.json", "r", encoding="utf-8") as f:
-            for entry in json.load(f):
-                cache[entry["name"].lower()] = entry
-
-    with open("games.txt", "r", encoding="utf-8") as f:
-        game_names = [line.strip() for line in f if line.strip()]
-
-    updated_games = []
-    for idx, name in enumerate(game_names, 1):
-        key = name.lower()
-        if key in cache and cache[key].get("bgg_id"):
-            updated_games.append(cache[key])
-            continue
-
-        print(f"[{idx}/{len(game_names)}] Fetching BGG data for: {name}")
-        try:
-            bgg_id = search_bgg_id(name)
-            time.sleep(1.5)
-            details = fetch_bgg_details(bgg_id) if bgg_id else None
-            if details:
-                updated_games.append({"name": name, **details})
-            else:
-                updated_games.append({
-                    "name": name, "bgg_id": "", "min": 2, "max": 4,
-                    "best": "2-4", "time": 30, "weight": 1.5,
-                    "rating": 0, "thumb": "", "tags": "Unmatched on BGG"
-                })
-        except Exception as e:
-            print(f"  Error on {name}: {e}")
-            updated_games.append({
-                "name": name, "bgg_id": "", "min": 2, "max": 4,
-                "best": "2-4", "time": 30, "weight": 1.5,
-                "rating": 0, "thumb": "", "tags": "Lookup pending"
-            })
-        time.sleep(1.5)
-
-    with open("games_data.json", "w", encoding="utf-8") as f:
-        json.dump(updated_games, f, indent=2, ensure_ascii=False)
-
-    build_html(updated_games)
-    print(f"Successfully built index.html with {len(updated_games)} games!")
-
-def build_html(games):
-    games_json = json.dumps(games, ensure_ascii=False)
-    html = f"""<!DOCTYPE html>
+HTML_TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BGA Game Night Hub</title>
 <style>
-  :root {{ --bg: #0f172a; --card: #1e293b; --accent: #38bdf8; --text: #f8fafc; --muted: #94a3b8; --border: #334155; }}
-  * {{ box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }}
-  body {{ margin: 0; background: var(--bg); color: var(--text); padding: 16px; max-width: 1100px; margin: 0 auto; }}
-  header {{ display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; }}
-  h1 {{ margin: 0; font-size: 1.5rem; }}
-  .btn {{ background: var(--card); color: var(--text); border: 1px solid var(--border); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; }}
-  .btn-primary {{ background: var(--accent); color: #0f172a; border: none; }}
-  .controls {{ background: var(--card); padding: 14px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 16px; display: grid; gap: 12px; }}
-  .row {{ display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }}
-  input, select, textarea {{ background: var(--bg); color: var(--text); border: 1px solid var(--border); padding: 8px 12px; border-radius: 8px; font-size: 0.95rem; }}
-  input[type="text"] {{ flex: 1; min-width: 200px; }}
-  .chips {{ display: flex; flex-wrap: wrap; gap: 8px; }}
-  .chip {{ background: var(--bg); border: 1px solid var(--border); color: var(--muted); padding: 6px 12px; border-radius: 999px; cursor: pointer; font-size: 0.85rem; }}
-  .chip.active {{ background: var(--accent); color: #0f172a; border-color: var(--accent); font-weight: 700; }}
-  .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }}
-  .card {{ background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.1s; }}
-  .card:hover {{ border-color: var(--accent); transform: translateY(-2px); }}
-  .card-top {{ display: flex; gap: 10px; align-items: flex-start; }}
-  .thumb {{ width: 52px; height: 52px; border-radius: 8px; object-fit: cover; background: var(--bg); flex-shrink: 0; }}
-  .title {{ font-weight: 700; font-size: 1.05rem; margin: 0 0 4px 0; }}
-  .meta {{ color: var(--muted); font-size: 0.85rem; }}
-  .tags {{ margin-top: 10px; font-size: 0.78rem; color: var(--accent); }}
-  dialog {{ background: var(--card); color: var(--text); border: 1px solid var(--border); border-radius: 14px; padding: 20px; max-width: 480px; width: 92%; }}
-  dialog::backdrop {{ background: rgba(0,0,0,0.7); }}
-  .elo-row {{ display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }}
+  :root { --bg: #0f172a; --card: #1e293b; --accent: #38bdf8; --text: #f8fafc; --muted: #94a3b8; --border: #334155; }
+  * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  body { margin: 0; background: var(--bg); color: var(--text); padding: 16px; max-width: 1100px; margin: 0 auto; }
+  header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; }
+  h1 { margin: 0; font-size: 1.5rem; }
+  .btn { background: var(--card); color: var(--text); border: 1px solid var(--border); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; }
+  .btn-primary { background: var(--accent); color: #0f172a; border: none; }
+  .controls { background: var(--card); padding: 14px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 16px; display: grid; gap: 12px; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  input, select, textarea { background: var(--bg); color: var(--text); border: 1px solid var(--border); padding: 8px 12px; border-radius: 8px; font-size: 0.95rem; }
+  input[type="text"] { flex: 1; min-width: 200px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { background: var(--bg); border: 1px solid var(--border); color: var(--muted); padding: 6px 12px; border-radius: 999px; cursor: pointer; font-size: 0.85rem; }
+  .chip.active { background: var(--accent); color: #0f172a; border-color: var(--accent); font-weight: 700; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.1s; }
+  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .card-top { display: flex; gap: 10px; align-items: flex-start; }
+  .thumb { width: 52px; height: 52px; border-radius: 8px; object-fit: cover; background: var(--bg); flex-shrink: 0; }
+  .title { font-weight: 700; font-size: 1.05rem; margin: 0 0 4px 0; }
+  .meta { color: var(--muted); font-size: 0.85rem; }
+  .tags { margin-top: 10px; font-size: 0.78rem; color: var(--accent); }
+  dialog { background: var(--card); color: var(--text); border: 1px solid var(--border); border-radius: 14px; padding: 20px; max-width: 480px; width: 92%; }
+  dialog::backdrop { background: rgba(0,0,0,0.7); }
+  .elo-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }
 </style>
 </head>
 <body>
@@ -220,3 +168,44 @@ def build_html(games):
   <p class="meta" id="modalMeta"></p>
   <h3>🏆 Crew ELO & Stats</h3>
   <div id="eloList"></div>
+  <div class="row" style="margin-top:16px; justify-content:flex-end;">
+    <button class="btn btn-primary" onclick="document.getElementById('gameModal').close()">Done</button>
+  </div>
+</dialog>
+
+<dialog id="crewModal">
+  <h2 style="margin-top:0">👥 Manage Game Night Crew</h2>
+  <div class="row" style="margin-bottom:12px;">
+    <input type="text" id="newMemberInput" placeholder="Friend's name...">
+    <button class="btn btn-primary" onclick="addCrewMember()">Add</button>
+  </div>
+  <div id="crewList"></div>
+  <div class="row" style="margin-top:16px; justify-content:space-between;">
+    <button class="btn" onclick="exportBackup()">⬇️ Export Backup</button>
+    <button class="btn btn-primary" onclick="document.getElementById('crewModal').close()">Close</button>
+  </div>
+</dialog>
+
+<dialog id="addGameModal">
+  <h2 style="margin-top:0">+ Add Quick Game</h2>
+  <p class="meta">Adds immediately to this browser. To sync with BGG permanently, also add the name to games.txt on GitHub.</p>
+  <div style="display:grid; gap:10px;">
+    <input type="text" id="addName" placeholder="Game Name (e.g. Harmonies)">
+    <div class="row">
+      <input type="number" id="addMin" placeholder="Min Players" value="2" style="width:48%">
+      <input type="number" id="addMax" placeholder="Max Players" value="4" style="width:48%">
+    </div>
+    <div class="row">
+      <input type="number" id="addTime" placeholder="Minutes" value="30" style="width:48%">
+      <input type="number" step="0.1" id="addWeight" placeholder="Weight (1-5)" value="1.8" style="width:48%">
+    </div>
+  </div>
+  <div class="row" style="margin-top:16px; justify-content:flex-end;">
+    <button class="btn" onclick="document.getElementById('addGameModal').close()">Cancel</button>
+    <button class="btn btn-primary" onclick="saveNewGame()">Save Game</button>
+  </div>
+</dialog>
+
+<dialog id="syncModal">
+  <h2 style="margin-top:0">🔄 Bulk Import BGA ELOs</h2>
+  <p class="meta">Select which crew member these stats belong to, then paste lines formatted as:<br><code>Game Name | ELO | Matches</code></p>
