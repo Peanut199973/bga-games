@@ -1,0 +1,1091 @@
+[
+  {
+    "name": "DIG UP Adventure",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Can't Stop",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Cribbage",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "boop.",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Flowers",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Azul",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Carcassonne",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "CATAN",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Hearts",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Backgammon",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Sobek: 2 Players",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Reflection",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "6 nimmt!",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Gamme Logic",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Super Mega Lucky Box",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "24/7: The Game",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Space Base",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Caravan",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Qawale",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Just One",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "7 Wonders Duel",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Lucky Numbers",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "7 Wonders Dice",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Chakra",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Saboteur",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "New York Zoo",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Flip 7: With A Vengeance",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Trusis",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Flip 7",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Yahtzee",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Decrypto",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Bag of Chips",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Fugitive",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Poker Texas Hold'em",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Spots",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Rainforest",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Turing Machine",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Gin Rummy",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Zombicide 2nd Edition",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Knockout Whist",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Booty Dice",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Kingdomino",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Now Boarding",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "The Gang",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Captain Flip",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Pocket Cats",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Solo",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Flaming Pyramids",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Ticket to Ride: Europe",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Crafting the Cosmos",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Hand and Foot",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Beer & Bread",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "51st State",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Piles!",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Hugo",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Stella \u2013 Dixit Universe",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "99 (addition card game)",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Knister",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Splendor",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Labyrinth",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Room 25",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Incan Gold",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "7 Wonders Architects",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "101: the match",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Rolling Pins",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Roll Through the Ages: The Bronze Age",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Crazy Eights",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Race for the Galaxy",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Skull",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Happy City",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Draftosaurus",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Quoridor",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Tiny Towns",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "King of Tokyo",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Tacta",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Wingspan",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Spot it",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Coffee Rush",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Breadcrumbs",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Up or Down?",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Gizmos",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Digit Code",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "MLEM: Space Agency",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Space Lab",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Sushi Go!",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Butterfly",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Forest Shuffle",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Diceathlon",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "The Number",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Look at the Stars",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Panic Lab",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Welcome To The Moon",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Welcome To",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Jump Drive",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Dobble Connect",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Elfenland",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Diced Tomatoes",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Drones vs Seagulls",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Applejack",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "P.I.",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Kingdom Builder",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Martian Dice",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Haiclue",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Hardback",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Ticket to Ride",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "La Marche du Crabe",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "The Great American Fox Hunt",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Envelopes of Cash",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Exploding Kittens",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Cartographers",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Schotten Totten",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "The Last Droids",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Azul: Queen's Garden",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Orapa Mine",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "CuBirds",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Spades",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Railroad Ink",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Shut the Box",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "dnup",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Moustache",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  },
+  {
+    "name": "Apiary",
+    "min": 2,
+    "max": 4,
+    "best": "2-4",
+    "time": 30,
+    "weight": 1.5,
+    "tags": "Pending"
+  }
+]
