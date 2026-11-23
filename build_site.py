@@ -1,211 +1,39 @@
-import json
-import os
-import time
-import urllib.parse
-import urllib.request
+import json, os, time, urllib.parse, urllib.request
 import xml.etree.ElementTree as ET
 
-BGG_TOKEN = os.environ.get("BGG_TOKEN", "").strip()
+TOKEN = os.environ.get("BGG_TOKEN", "").strip()
+HDR = {"Authorization": f"Bearer {TOKEN}", "User-Agent": "BGA-Hub/1.0"}
 
-HEADERS = {
-    "Authorization": f"Bearer {BGG_TOKEN}",
-    "User-Agent": "BGA-Game-Night-Builder/1.0"
-}
+def fetch(url):
+    req = urllib.request.Request(url, headers=HDR)
+    with urllib.request.urlopen(req, timeout=15) as r:
+        return ET.fromstring(r.read())
 
-def search_bgg_id(game_name):
-    query = urllib.parse.quote(game_name)
-    url = f"https://boardgamegeek.com{query}&type=boardgame"
-    req = urllib.request.Request(url, headers=HEADERS)
-    with urllib.request.urlopen(req, timeout=15) as resp:
-        root = ET.fromstring(resp.read())
-    items = root.findall("item")
-    if not items:
-        return None
-    for item in items:
-        name_el = item.find("name")
-        if name_el is not None and name_el.attrib.get("value", "").lower() == game_name.lower():
-            return item.attrib["id"]
-    return items[0].attrib["id"]
+def lookup(name):
+    q = urllib.parse.quote(name)
+    items = fetch(f"https://boardgamegeek.com{q}&type=boardgame").findall("item")
+    if not items: return None
+    bid = next((i.attrib["id"] for i in items if i.find("name").attrib.get("value","").lower() == name.lower()), items[0].attrib["id"])
+    time.sleep(1.5)
+    it = fetch(f"https://boardgamegeek.com{bid}&stats=1").find("item")
+    if it is None: return None
+    mn, mx = int(it.find("minplayers").attrib.get("value",1) or 1), int(it.find("maxplayers").attrib.get("value",4) or 4)
+    tm = int(it.find("playingtime").attrib.get("value",30) or 30)
+    wt = round(float(it.find(".//averageweight").attrib.get("value",1.5) or 1.5), 2)
+    rt = round(float(it.find(".//average").attrib.get("value",0) or 0), 1)
+    th = (it.find("thumbnail").text or "").strip() if it.find("thumbnail") is not None else ""
+    tags = ", ".join([l.attrib["value"] for l in it.findall("link[@type='boardgamecategory']")[:2] + it.findall("link[@type='boardgamemechanic']")[:2]])
+    return {"name": name, "bgg_id": bid, "min": mn, "max": mx, "best": f"{mn}-{mx}", "time": tm, "weight": wt, "rating": rt, "thumb": th, "tags": tags}
 
-def fetch_bgg_details(bgg_id):
-    url = f"https://boardgamegeek.com{bgg_id}&stats=1"
-    req = urllib.request.Request(url, headers=HEADERS)
-    with urllib.request.urlopen(req, timeout=15) as resp:
-        root = ET.fromstring(resp.read())
-    item = root.find("item")
-    if item is None:
-        return None
+cache = {g["name"].lower(): g for g in json.load(open("games_data.json"))} if os.path.exists("games_data.json") else {}
+games = []
+for n in [l.strip() for l in open("games.txt") if l.strip()]:
+    if n.lower() in cache and cache[n.lower()].get("bgg_id"):
+        games.append(cache[n.lower()])
+    else:
+        try: games.append(lookup(n) or {"name": n, "min": 2, "max": 4, "best": "2-4", "time": 30, "weight": 1.5, "tags": "Unmatched"})
+        except Exception: games.append({"name": n, "min": 2, "max": 4, "best": "2-4", "time": 30, "weight": 1.5, "tags": "Pending"})
+        time.sleep(1.5)
 
-    min_p = int(item.find("minplayers").attrib.get("value", 1) or 1)
-    max_p = int(item.find("maxplayers").attrib.get("value", 4) or 4)
-    playtime = int(item.find("playingtime").attrib.get("value", 30) or 30)
-    weight_el = item.find(".//averageweight")
-    weight = round(float(weight_el.attrib.get("value", 1.5) or 1.5), 2)
-    rating_el = item.find(".//average")
-    rating = round(float(rating_el.attrib.get("value", 0) or 0), 1)
-    thumb_el = item.find("thumbnail")
-    thumb = thumb_el.text.strip() if thumb_el is not None and thumb_el.text else ""
-
-    best_players = f"{min_p}-{max_p}" if min_p != max_p else str(min_p)
-    best_votes = 0
-    for res in item.findall(".//poll[@name='suggested_numplayers']/results"):
-        num = res.attrib.get("numplayers", "")
-        best_el = res.find("result[@value='Best']")
-        votes = int(best_el.attrib.get("numvotes", 0)) if best_el is not None else 0
-        if votes > best_votes:
-            best_votes = votes
-            best_players = num
-
-    mechanics = [
-        link.attrib.get("value", "")
-        for link in item.findall("link[@type='boardgamemechanic']")
-    ][:3]
-    categories = [
-        link.attrib.get("value", "")
-        for link in item.findall("link[@type='boardgamecategory']")
-    ][:2]
-    tags = ", ".join(categories + mechanics) or "Board Game"
-
-    return {
-        "bgg_id": bgg_id,
-        "min": min_p,
-        "max": max_p,
-        "best": best_players,
-        "time": playtime,
-        "weight": weight,
-        "rating": rating,
-        "thumb": thumb,
-        "tags": tags
-    }
-
-HTML_TEMPLATE = """<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BGA Game Night Hub</title>
-<style>
-  :root { --bg: #0f172a; --card: #1e293b; --accent: #38bdf8; --text: #f8fafc; --muted: #94a3b8; --border: #334155; }
-  * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-  body { margin: 0; background: var(--bg); color: var(--text); padding: 16px; max-width: 1100px; margin: 0 auto; }
-  header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; }
-  h1 { margin: 0; font-size: 1.5rem; }
-  .btn { background: var(--card); color: var(--text); border: 1px solid var(--border); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; }
-  .btn-primary { background: var(--accent); color: #0f172a; border: none; }
-  .controls { background: var(--card); padding: 14px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 16px; display: grid; gap: 12px; }
-  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-  input, select, textarea { background: var(--bg); color: var(--text); border: 1px solid var(--border); padding: 8px 12px; border-radius: 8px; font-size: 0.95rem; }
-  input[type="text"] { flex: 1; min-width: 200px; }
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip { background: var(--bg); border: 1px solid var(--border); color: var(--muted); padding: 6px 12px; border-radius: 999px; cursor: pointer; font-size: 0.85rem; }
-  .chip.active { background: var(--accent); color: #0f172a; border-color: var(--accent); font-weight: 700; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.1s; }
-  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .card-top { display: flex; gap: 10px; align-items: flex-start; }
-  .thumb { width: 52px; height: 52px; border-radius: 8px; object-fit: cover; background: var(--bg); flex-shrink: 0; }
-  .title { font-weight: 700; font-size: 1.05rem; margin: 0 0 4px 0; }
-  .meta { color: var(--muted); font-size: 0.85rem; }
-  .tags { margin-top: 10px; font-size: 0.78rem; color: var(--accent); }
-  dialog { background: var(--card); color: var(--text); border: 1px solid var(--border); border-radius: 14px; padding: 20px; max-width: 480px; width: 92%; }
-  dialog::backdrop { background: rgba(0,0,0,0.7); }
-  .elo-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }
-</style>
-</head>
-<body>
-<header>
-  <div>
-    <h1>🎲 BGA Game Night Hub</h1>
-    <div class="meta" id="countLabel">Loading games...</div>
-  </div>
-  <div class="row">
-    <button class="btn" onclick="openAddGame()">+ Add Game</button>
-    <button class="btn" onclick="openSyncModal()">🔄 Sync BGA ELOs</button>
-    <button class="btn" onclick="openCrewModal()">👥 Crew</button>
-    <button class="btn btn-primary" onclick="pickRandom()">🎲 Random Pick</button>
-  </div>
-</header>
-
-<div class="controls">
-  <div class="row">
-    <input type="text" id="searchInput" placeholder="Search game name or mechanic..." oninput="render()">
-    <select id="playerFilter" onchange="render()">
-      <option value="0">Any Players</option>
-      <option value="1">1 Player</option>
-      <option value="2">2 Players</option>
-      <option value="3">3 Players</option>
-      <option value="4">4 Players</option>
-      <option value="5">5 Players</option>
-      <option value="6">6+ Players</option>
-    </select>
-    <select id="timeFilter" onchange="render()">
-      <option value="999">Any Time</option>
-      <option value="20">≤ 20 mins</option>
-      <option value="30">≤ 30 mins</option>
-      <option value="45">≤ 45 mins</option>
-      <option value="60">≤ 60 mins</option>
-    </select>
-    <select id="weightFilter" onchange="render()">
-      <option value="5">Any Complexity</option>
-      <option value="1.5">Light (≤ 1.5)</option>
-      <option value="2.2">Medium-Light (≤ 2.2)</option>
-      <option value="3.0">Medium (≤ 3.0)</option>
-    </select>
-  </div>
-  <div class="chips" id="quickChips">
-    <span class="chip" onclick="toggleChip(this, '2p')">2 Players</span>
-    <span class="chip" onclick="toggleChip(this, '4p')">4 Players</span>
-    <span class="chip" onclick="toggleChip(this, 'fast')">⚡ ≤ 20m</span>
-    <span class="chip" onclick="toggleChip(this, 'light')">🪶 Light</span>
-    <span class="chip" onclick="toggleChip(this, 'coop')">🤝 Cooperative</span>
-  </div>
-</div>
-
-<div class="grid" id="gameGrid"></div>
-
-<dialog id="gameModal">
-  <h2 id="modalTitle" style="margin-top:0"></h2>
-  <p class="meta" id="modalMeta"></p>
-  <h3>🏆 Crew ELO & Stats</h3>
-  <div id="eloList"></div>
-  <div class="row" style="margin-top:16px; justify-content:flex-end;">
-    <button class="btn btn-primary" onclick="document.getElementById('gameModal').close()">Done</button>
-  </div>
-</dialog>
-
-<dialog id="crewModal">
-  <h2 style="margin-top:0">👥 Manage Game Night Crew</h2>
-  <div class="row" style="margin-bottom:12px;">
-    <input type="text" id="newMemberInput" placeholder="Friend's name...">
-    <button class="btn btn-primary" onclick="addCrewMember()">Add</button>
-  </div>
-  <div id="crewList"></div>
-  <div class="row" style="margin-top:16px; justify-content:space-between;">
-    <button class="btn" onclick="exportBackup()">⬇️ Export Backup</button>
-    <button class="btn btn-primary" onclick="document.getElementById('crewModal').close()">Close</button>
-  </div>
-</dialog>
-
-<dialog id="addGameModal">
-  <h2 style="margin-top:0">+ Add Quick Game</h2>
-  <p class="meta">Adds immediately to this browser. To sync with BGG permanently, also add the name to games.txt on GitHub.</p>
-  <div style="display:grid; gap:10px;">
-    <input type="text" id="addName" placeholder="Game Name (e.g. Harmonies)">
-    <div class="row">
-      <input type="number" id="addMin" placeholder="Min Players" value="2" style="width:48%">
-      <input type="number" id="addMax" placeholder="Max Players" value="4" style="width:48%">
-    </div>
-    <div class="row">
-      <input type="number" id="addTime" placeholder="Minutes" value="30" style="width:48%">
-      <input type="number" step="0.1" id="addWeight" placeholder="Weight (1-5)" value="1.8" style="width:48%">
-    </div>
-  </div>
-  <div class="row" style="margin-top:16px; justify-content:flex-end;">
-    <button class="btn" onclick="document.getElementById('addGameModal').close()">Cancel</button>
-    <button class="btn btn-primary" onclick="saveNewGame()">Save Game</button>
-  </div>
-</dialog>
-
-<dialog id="syncModal">
-  <h2 style="margin-top:0">🔄 Bulk Import BGA ELOs</h2>
-  <p class="meta">Select which crew member these stats belong to, then paste lines formatted as:<br><code>Game Name | ELO | Matches</code></p>
+json.dump(games, open("games_data.json", "w"), indent=2)
+open("index.html", "w").write(open("template.html").read().replace("__GAMES_JSON__", json.dumps(games)))
